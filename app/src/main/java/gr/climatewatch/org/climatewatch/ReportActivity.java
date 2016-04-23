@@ -121,7 +121,7 @@ public class ReportActivity extends AppCompatActivity {
                 String t = format.replace(" ", "T");
                 values.setTimestamp(t + "Z");
                 System.out.println("Values from class: " + values.toJson());
-                Toast.makeText(null, values.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), values.toString()+"\n"+loc.getLatitude()+","+loc.getLongitude(), Toast.LENGTH_LONG).show();
             }
         });
 
