@@ -34,7 +34,7 @@
 
     <ImageButton
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/symptBtn"
         android:contentDescription="@string/symptoms"
         android:background="@drawable/ic_action_name"
