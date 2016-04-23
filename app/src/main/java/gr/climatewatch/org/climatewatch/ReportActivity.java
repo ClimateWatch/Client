@@ -12,8 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-
-import com.google.gson.Gson;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,7 +39,7 @@ public class ReportActivity extends AppCompatActivity {
     private Sensor mLux;
     private Sensor mTemprature;
     private SensorValues values;
-    private Gson gson;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,6 @@ public class ReportActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        gson = new Gson();
         posImage = (ImageButton) findViewById(R.id.posBtn);
         sysImage = (ImageButton) findViewById(R.id.symptBtn);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -123,6 +121,7 @@ public class ReportActivity extends AppCompatActivity {
                 String t = format.replace(" ", "T");
                 values.setTimestamp(t + "Z");
                 System.out.println("Values from class: " + values.toJson());
+                Toast.makeText(null, values.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -130,8 +129,8 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent symptoms = new Intent();
-                symptoms.setClass(getApplicationContext(),Symptomsactivity.class);
-                startActivityForResult(symptoms,1);
+                symptoms.setClass(getApplicationContext(), Symptomsactivity.class);
+                startActivityForResult(symptoms, 1);
             }
         });
 
