@@ -10,6 +10,8 @@ public class SensorValues {
     private String latitude;
     private String longitude;
     private String temprature;
+    private String generatedJson;
+    private String timestamp;
 
     public SensorValues(String humidity, String lux, String pressure, String temprature, String latitude, String longitude) {
         this.humidity = humidity;
@@ -68,6 +70,48 @@ public class SensorValues {
         this.temprature = temprature;
     }
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String toJson() {
+        generatedJson = "[" +
+                "{" +
+                "\"type\":\"Feature\"," +
+                "\"temperature\":{" +
+                "\"temperature\":\"" + temprature + "\"," +
+                "\"timestamp\":\"" + timestamp + "\"" +
+                "}," +
+                "{" +
+                "\"humidity\":{" +
+                "\"humidity\":\"" + humidity + "\"," +
+                "\"timestamp\":\"" + timestamp + "\"" +
+                "}," +
+                "{" +
+                "\"lux\":{" +
+                "\"lux\":\"" + lux + "\"," +
+                "\"timestamp\":\"" + timestamp + "\"" +
+                "}," +
+                "{" +
+                "\"pressure\":{" +
+                "\"pressure\":\"" + pressure + "\"," +
+                "\"timestamp\":\"" + timestamp + "\"" +
+                "}," +
+                "\"geometry\":{\n" +
+                "\"type\":\"Point\",\n" +
+                "\"coordinates\":[\n" +
+                "" + latitude + ",\n" +
+                "" + longitude + "\n" +
+                "]\n" +
+                "}\n" +
+                "}}]";
+        return generatedJson;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,23 +119,33 @@ public class SensorValues {
 
         SensorValues that = (SensorValues) o;
 
-        if (!humidity.equals(that.humidity)) return false;
-        if (!lux.equals(that.lux)) return false;
-        if (!pressure.equals(that.pressure)) return false;
-        if (!latitude.equals(that.latitude)) return false;
-        if (!longitude.equals(that.longitude)) return false;
-        return temprature.equals(that.temprature);
+        if (humidity != null ? !humidity.equals(that.humidity) : that.humidity != null)
+            return false;
+        if (lux != null ? !lux.equals(that.lux) : that.lux != null) return false;
+        if (pressure != null ? !pressure.equals(that.pressure) : that.pressure != null)
+            return false;
+        if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null)
+            return false;
+        if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null)
+            return false;
+        if (temprature != null ? !temprature.equals(that.temprature) : that.temprature != null)
+            return false;
+        if (generatedJson != null ? !generatedJson.equals(that.generatedJson) : that.generatedJson != null)
+            return false;
+        return timestamp != null ? timestamp.equals(that.timestamp) : that.timestamp == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = humidity.hashCode();
-        result = 31 * result + lux.hashCode();
-        result = 31 * result + pressure.hashCode();
-        result = 31 * result + latitude.hashCode();
-        result = 31 * result + longitude.hashCode();
-        result = 31 * result + temprature.hashCode();
+        int result = humidity != null ? humidity.hashCode() : 0;
+        result = 31 * result + (lux != null ? lux.hashCode() : 0);
+        result = 31 * result + (pressure != null ? pressure.hashCode() : 0);
+        result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
+        result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
+        result = 31 * result + (temprature != null ? temprature.hashCode() : 0);
+        result = 31 * result + (generatedJson != null ? generatedJson.hashCode() : 0);
+        result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
         return result;
     }
 
@@ -104,6 +158,8 @@ public class SensorValues {
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
                 ", temprature='" + temprature + '\'' +
+                ", generatedJson='" + generatedJson + '\'' +
+                ", timestamp='" + timestamp + '\'' +
                 '}';
     }
 }

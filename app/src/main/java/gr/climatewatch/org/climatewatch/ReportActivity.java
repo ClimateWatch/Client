@@ -14,7 +14,8 @@ import android.widget.ImageButton;
 
 import com.google.gson.Gson;
 
-import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ReportActivity extends AppCompatActivity {
@@ -114,11 +115,12 @@ public class ReportActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Location loc = getLastBestLocation();
                 values = new SensorValues(String.valueOf(humidity), String.valueOf(lux), String.valueOf(pressure), String.valueOf(temprature), String.valueOf(loc.getLatitude()), String.valueOf(loc.getLongitude()));
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date();
-                Timestamp timestamp = new Timestamp(date, null);
-                System.out.println("Values from class: " + values.toString());
-                String s = gson.toJson(values);
-                System.out.println("Values from json: " + s);
+                String format = dateFormat.format(date);
+                String t = format.replace(" ", "T");
+                values.setTimestamp(t + "Z");
+                System.out.println("Values from class: " + values.toJson());
             }
         });
     }
