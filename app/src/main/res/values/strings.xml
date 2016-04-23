@@ -2,4 +2,7 @@
     <string name="app_name">ClimateWatch</string>
     <string name="action_settings">Settings</string>
     <string name="positionmarker">positionmarker</string>
+    <string name="title_activity_symptomsactivity">symptomsactivity</string>
+    <string name="symptoms">symptoms</string>
+    <string name="texV">Press the button above to locate</string>
 </resources>

@@ -1,6 +1,7 @@
 package gr.climatewatch.org.climatewatch;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -22,7 +23,7 @@ public class ReportActivity extends AppCompatActivity {
 
     //Graphics
     private ImageButton posImage;
-
+    private ImageButton sysImage;
 
     private LocationManager locationManager = null;
     private SensorEventListener lightSensorListener;
@@ -51,6 +52,7 @@ public class ReportActivity extends AppCompatActivity {
         super.onStart();
         gson = new Gson();
         posImage = (ImageButton) findViewById(R.id.posBtn);
+        sysImage = (ImageButton) findViewById(R.id.symptBtn);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
@@ -123,6 +125,16 @@ public class ReportActivity extends AppCompatActivity {
                 System.out.println("Values from class: " + values.toJson());
             }
         });
+
+        sysImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent symptoms = new Intent();
+                symptoms.setClass(getApplicationContext(),Symptomsactivity.class);
+                startActivityForResult(symptoms,1);
+            }
+        });
+
     }
 
     private void registerSensorListeners() {

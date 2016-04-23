@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="positionmarker">positionmarker</string>
+    <string name="symptoms">symptoms</string>
+    <string name="texV">Press the button above to locate</string>
 </resources>
