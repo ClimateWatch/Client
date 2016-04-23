@@ -11,5 +11,16 @@
     tools:context="gr.climatewatch.org.climatewatch.ReportActivity">
 
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:contentDescription="@string/positionmarker"
+        android:layout_gravity="center_horizontal" />
 
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/expandableListView"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>
