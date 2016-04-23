@@ -35,6 +35,7 @@ public class StartActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(),ReportActivity.class);
                 startActivityForResult(intent,1);
+                //finish();
 
             }
         });
