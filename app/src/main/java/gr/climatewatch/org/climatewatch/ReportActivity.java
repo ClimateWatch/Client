@@ -9,16 +9,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -38,6 +33,8 @@ public class ReportActivity extends AppCompatActivity {
     private ImageButton posImage;
     private ImageButton sysImage;
 
+    private String latitude;
+    private String longitude;
     private LocationManager locationManager = null;
     private SensorEventListener lightSensorListener;
     private SensorEventListener pressureSensorListener;
@@ -201,42 +198,35 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-//    private String symptomsToJSON(ArrayList<Symptoms> sy){
-//        String generatedJson = "";
-//
-//        generatedJson = "[\n" +
-//                "{\n" +
-//                "\"type\":\"Feature\",\n" +
-//                "\"temperature\":{\n" +
-//                "\"temperature\":\"" + temprature + "\",\n" +
-//                "\"timestamp\":\"" + timestamp + "\"\n" +
-//                "},\n" +
-//
-//                "\"humidity\":{\n" +
-//                "\"humidity\":\"" + humidity + "\",\n" +
-//                "\"timestamp\":\"" + timestamp + "\"\n" +
-//                "},\n" +
-//
-//                "\"lux\":{\n" +
-//                "\"lux\":\"" + lux + "\",\n" +
-//                "\"timestamp\":\"" + timestamp + "\"\n" +
-//                "},\n" +
-//
-//                "\"pressure\":{\n" +
-//                "\"pressure\":\"" + pressure + "\",\n" +
-//                "\"timestamp\":\"" + timestamp + "\"\n" +
-//                "},\n" +
-//                "\"geometry\":{\n" +
-//                "\"type\":\"Point\",\n" +
-//                "\"coordinates\":[\n" +
-//                "" + latitude + ",\n" +
-//                "" + longitude + "\n" +
-//                "]\n" +
-//
-//                "}\n}\n]";
-//        return generatedJson;
-//
-//    }
+    private String symptomsToJSON(ArrayList<Symptoms> sy) {
+        Location loc = getLastBestLocation();
+        latitude = String.valueOf(loc.getLatitude());
+        longitude = String.valueOf(loc.getLongitude());
+        String generatedJson = "";
+        String tmp = "";
+        for (Symptoms s : sy) {
+            tmp += "\"" + s.getName() + "\":{\n" +
+                    "\"measurements\":{" +
+                    "\"value\":\"" + s.getRate() + "\"\n},";
+        }
+        if (!sy.isEmpty()) {
+            generatedJson = "[\n" +
+                    "{\n" +
+                    "\"type\":\"Feature\",\n" +
+                    "\"properties\":{\n" +
+                    tmp +
+                    "\"geometry\":{\n" +
+                    "\"type\":\"Point\",\n" +
+                    "\"coordinates\":[\n" +
+                    "" + latitude + ",\n" +
+                    "" + longitude + "\n" +
+                    "]\n" +
+
+                    "}\n}\n]";
+            ;
+        }
+        return generatedJson;
+    }
 
     protected void onResume() {
         super.onResume();
