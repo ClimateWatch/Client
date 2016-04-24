@@ -131,6 +131,7 @@ public class ReportActivity extends AppCompatActivity {
                 Intent symptoms = new Intent();
                 symptoms.setClass(getApplicationContext(), SymptomsActivity.class);
                 startActivityForResult(symptoms, 1);
+                //hiiii
             }
         });
 
