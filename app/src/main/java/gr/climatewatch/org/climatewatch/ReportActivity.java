@@ -1,6 +1,7 @@
 package gr.climatewatch.org.climatewatch;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -26,7 +28,7 @@ public class ReportActivity extends AppCompatActivity {
 
     //Graphics
     private ImageButton posImage;
-//    private ImageButton sysImage;
+    private ImageButton sysImage;
 
     private LocationManager locationManager = null;
     private SensorEventListener lightSensorListener;
@@ -53,7 +55,7 @@ public class ReportActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         posImage = (ImageButton) findViewById(R.id.posBtn);
-//        sysImage = (ImageButton) findViewById(R.id.symptBtn);
+        sysImage = (ImageButton) findViewById(R.id.symptBtn);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
@@ -124,6 +126,7 @@ public class ReportActivity extends AppCompatActivity {
                 String t = format.replace(" ", "T");
                 values.setTimestamp(t + "Z");
                 System.out.println("Values from class: " + values.toJson());
+                Toast.makeText(getApplicationContext(), values.toString()+"\n"+loc.getLatitude()+","+loc.getLongitude(), Toast.LENGTH_LONG).show();
                 HttpClient httpClient = new DefaultHttpClient(); //Use this instead
                 try {
                     HttpPost request = new HttpPost("http://83.212.98.110:8000/");
@@ -138,14 +141,15 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-//        sysImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent symptoms = new Intent();
-//                symptoms.setClass(getApplicationContext(),Symptomsactivity.class);
-//                startActivityForResult(symptoms,1);
-//            }
-//        });
+
+        sysImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent symptoms = new Intent();
+                symptoms.setClass(getApplicationContext(),SymptomsActivity.class);
+                startActivityForResult(symptoms,1);
+            }
+        });
 
     }
 

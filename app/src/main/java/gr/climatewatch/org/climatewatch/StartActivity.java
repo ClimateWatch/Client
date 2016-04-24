@@ -14,6 +14,7 @@ import android.webkit.WebView;
 
 public class StartActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,7 @@ public class StartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         WebView myWebView = (WebView) findViewById(R.id.webview);
-        myWebView.loadUrl("http://mapwire.net/");
+        myWebView.loadUrl("http://wxyz.gr:5000/");
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
@@ -42,7 +43,6 @@ public class StartActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
