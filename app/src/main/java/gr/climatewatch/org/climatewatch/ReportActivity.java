@@ -129,7 +129,7 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent symptoms = new Intent();
-                symptoms.setClass(getApplicationContext(), Symptomsactivity.class);
+                symptoms.setClass(getApplicationContext(), SymptomsActivity.class);
                 startActivityForResult(symptoms, 1);
             }
         });

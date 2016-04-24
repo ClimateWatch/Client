@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Symptomsactivity extends Activity {
+public class SymptomsActivity extends Activity {
 
     private MyCustomAdapter dataAdapter = null;
     private FloatingActionButton myButton;
