@@ -82,6 +82,7 @@ public class SensorValues {
         generatedJson = "[\n" +
                 "{\n" +
                 "\"type\":\"Feature\",\n" +
+                "\"properties\":{\n" +
                 "\"temperature\":{\n" +
                 "\"temperature\":\"" + temprature + "\",\n" +
                 "\"timestamp\":\"" + timestamp + "\"\n" +
@@ -100,7 +101,7 @@ public class SensorValues {
                 "\"pressure\":{\n" +
                 "\"pressure\":\"" + pressure + "\",\n" +
                 "\"timestamp\":\"" + timestamp + "\"\n" +
-                "},\n" +
+                "}\n},\n" +
                 "\"geometry\":{\n" +
                 "\"type\":\"Point\",\n" +
                 "\"coordinates\":[\n" +

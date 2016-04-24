@@ -55,6 +55,8 @@ public class ReportActivity extends AppCompatActivity {
     private SensorValues values;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,6 +200,43 @@ public class ReportActivity extends AppCompatActivity {
         mSensorManager.unregisterListener(humiditySensorListener);
     }
 
+
+//    private String symptomsToJSON(ArrayList<Symptoms> sy){
+//        String generatedJson = "";
+//
+//        generatedJson = "[\n" +
+//                "{\n" +
+//                "\"type\":\"Feature\",\n" +
+//                "\"temperature\":{\n" +
+//                "\"temperature\":\"" + temprature + "\",\n" +
+//                "\"timestamp\":\"" + timestamp + "\"\n" +
+//                "},\n" +
+//
+//                "\"humidity\":{\n" +
+//                "\"humidity\":\"" + humidity + "\",\n" +
+//                "\"timestamp\":\"" + timestamp + "\"\n" +
+//                "},\n" +
+//
+//                "\"lux\":{\n" +
+//                "\"lux\":\"" + lux + "\",\n" +
+//                "\"timestamp\":\"" + timestamp + "\"\n" +
+//                "},\n" +
+//
+//                "\"pressure\":{\n" +
+//                "\"pressure\":\"" + pressure + "\",\n" +
+//                "\"timestamp\":\"" + timestamp + "\"\n" +
+//                "},\n" +
+//                "\"geometry\":{\n" +
+//                "\"type\":\"Point\",\n" +
+//                "\"coordinates\":[\n" +
+//                "" + latitude + ",\n" +
+//                "" + longitude + "\n" +
+//                "]\n" +
+//
+//                "}\n}\n]";
+//        return generatedJson;
+//
+//    }
 
     protected void onResume() {
         super.onResume();
