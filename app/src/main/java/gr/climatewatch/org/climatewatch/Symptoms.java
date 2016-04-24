@@ -5,13 +5,31 @@ package gr.climatewatch.org.climatewatch;
  */
 public class Symptoms {
 
-    String name;
-    boolean isSelected;
+    private String name;
+    private int rate;
+    private boolean isSelected;
 
+    public Symptoms() {
+    }
+
+    public Symptoms(String name, int rate, boolean isSelected) {
+        this.name = name;
+        this.rate = rate;
+        this.isSelected = isSelected;
+    }
 
     public Symptoms(String name, boolean isSelected) {
         this.name = name;
         this.isSelected = isSelected;
+        this.rate = 0;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 
     public boolean isSelected() {

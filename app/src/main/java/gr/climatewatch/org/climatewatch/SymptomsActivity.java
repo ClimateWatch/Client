@@ -82,9 +82,12 @@ public class SymptomsActivity extends Activity {
                 for (int i = 0; i < SymptomsList.size(); i++) {
                     Symptoms Symptoms = SymptomsList.get(i);
                     if (Symptoms.isSelected()) {
-                        responseText.append("\n" + Symptoms.getName());
+                        responseText.append("\n" + Symptoms.getName() + " \t"+ Symptoms.getRate());
                     }
                 }
+
+
+
                 Toast.makeText(getApplicationContext(),
                         responseText, Toast.LENGTH_LONG).show();
 
@@ -128,16 +131,18 @@ public class SymptomsActivity extends Activity {
                 holder.seek = (SeekBar) convertView.findViewById(R.id.seekBar);
 
                 convertView.setTag(holder);
+                final Symptoms[] Symptoms = {new Symptoms()};
+
 
                 holder.name.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         CheckBox cb = (CheckBox) v;
-                        Symptoms Symptoms = (Symptoms) cb.getTag();
+                        Symptoms[0] = (Symptoms) cb.getTag();
                         Toast.makeText(getApplicationContext(),
                                 "Clicked on Checkbox: " + cb.getText() +
                                         " is " + cb.isChecked(),
                                 Toast.LENGTH_LONG).show();
-                        Symptoms.setSelected(cb.isChecked());
+                        Symptoms[0].setSelected(cb.isChecked());
                     }
                 });
 
@@ -156,6 +161,8 @@ public class SymptomsActivity extends Activity {
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         int value = seekBar.getProgress();
+                        Symptoms[0].setRate(value);
+
                     }
                 });
             } else {
@@ -167,6 +174,8 @@ public class SymptomsActivity extends Activity {
             holder.name.setText(Symptoms.getName());
             holder.name.setChecked(Symptoms.isSelected());
             holder.name.setTag(Symptoms);
+
+
             return convertView;
         }
 
