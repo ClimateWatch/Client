@@ -2,6 +2,7 @@ package gr.climatewatch.org.climatewatch;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -13,8 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
@@ -22,6 +25,10 @@ public class SymptomsActivity extends Activity {
 
     private MyCustomAdapter dataAdapter = null;
     private FloatingActionButton myButton;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,7 @@ public class SymptomsActivity extends Activity {
         //Generate list View from ArrayList
         displayListView();
         checkButtonClick();
-    }
+      }
 
     private void displayListView() {
         //Array list of countries
@@ -43,7 +50,7 @@ public class SymptomsActivity extends Activity {
         SymptomsList.add(Symptoms);
         Symptoms = new Symptoms("Sputum", false);
         SymptomsList.add(Symptoms);
-        Symptoms = new Symptoms("Cyanoso",false);
+        Symptoms = new Symptoms("Cyanoso", false);
         SymptomsList.add(Symptoms);
         //create an ArrayAdaptar from the String Array
         dataAdapter = new MyCustomAdapter(this,
@@ -87,6 +94,10 @@ public class SymptomsActivity extends Activity {
     }
 
 
+
+
+
+
     //<---------------- INNER CLASS------------>
 
     private class MyCustomAdapter extends ArrayAdapter<Symptoms> {
@@ -114,6 +125,8 @@ public class SymptomsActivity extends Activity {
                 holder = new ViewHolder();
                 holder.code = (TextView) convertView.findViewById(R.id.code);
                 holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
+                holder.seek = (SeekBar) convertView.findViewById(R.id.seekBar);
+
                 convertView.setTag(holder);
 
                 holder.name.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +138,24 @@ public class SymptomsActivity extends Activity {
                                         " is " + cb.isChecked(),
                                 Toast.LENGTH_LONG).show();
                         Symptoms.setSelected(cb.isChecked());
+                    }
+                });
+
+                holder.seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        //Toast.makeText(getApplicationContext(),seekBar.getProgress(),Toast.LENGTH_LONG);
+                        System.out.println(seekBar.getProgress());
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        int value = seekBar.getProgress();
                     }
                 });
             } else {
@@ -142,6 +173,7 @@ public class SymptomsActivity extends Activity {
         private class ViewHolder {
             TextView code;
             CheckBox name;
+            SeekBar seek;
         }
 
     }
