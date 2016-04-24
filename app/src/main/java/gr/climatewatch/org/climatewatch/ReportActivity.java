@@ -1,7 +1,6 @@
 package gr.climatewatch.org.climatewatch;
 
 import android.content.Context;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -9,17 +8,13 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.google.gson.Gson;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -48,7 +43,6 @@ public class ReportActivity extends AppCompatActivity {
     private Sensor mLux;
     private Sensor mTemprature;
     private SensorValues values;
-    private Gson gson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +52,6 @@ public class ReportActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        gson = new Gson();
         posImage = (ImageButton) findViewById(R.id.posBtn);
 //        sysImage = (ImageButton) findViewById(R.id.symptBtn);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -133,7 +126,7 @@ public class ReportActivity extends AppCompatActivity {
                 System.out.println("Values from class: " + values.toJson());
                 HttpClient httpClient = new DefaultHttpClient(); //Use this instead
                 try {
-                    HttpPost request = new HttpPost("http://192.168.1.3:8000/");
+                    HttpPost request = new HttpPost("http://83.212.98.110:8000/");
                     StringEntity params = new StringEntity(values.toJson());
                     request.setHeader("Accept", "application/json");
                     request.setHeader("Content-type","application/json");
