@@ -1,14 +1,17 @@
 package gr.climatewatch.org.climatewatch;
 
+import java.io.Serializable;
+
 /**
  * Created by dimitristomaras on 23/04/16.
  */
-public class Symptoms {
+public class Symptoms implements  Serializable{
 
     private String name;
     private int rate;
     private boolean isSelected;
 
+    private static long id = -1L;
     public Symptoms() {
     }
 

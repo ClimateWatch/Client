@@ -2,6 +2,7 @@ package gr.climatewatch.org.climatewatch;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -91,7 +92,11 @@ public class SymptomsActivity extends Activity {
                 Toast.makeText(getApplicationContext(),
                         responseText, Toast.LENGTH_LONG).show();
 
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("USSYMPTOMS", SymptomsList);
+                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
+
 
             }
         });

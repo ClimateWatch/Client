@@ -1,5 +1,6 @@
 package gr.climatewatch.org.climatewatch;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -8,11 +9,16 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -22,7 +28,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -45,11 +53,13 @@ public class ReportActivity extends AppCompatActivity {
     private Sensor mLux;
     private Sensor mTemprature;
     private SensorValues values;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
-    }
+     }
 
     @Override
     protected void onStart() {
@@ -63,6 +73,7 @@ public class ReportActivity extends AppCompatActivity {
         mLux = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         mTemprature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         initializeListeners();
+
     }
 
 
@@ -126,16 +137,16 @@ public class ReportActivity extends AppCompatActivity {
                 String t = format.replace(" ", "T");
                 values.setTimestamp(t + "Z");
                 System.out.println("Values from class: " + values.toJson());
-                Toast.makeText(getApplicationContext(), values.toString()+"\n"+loc.getLatitude()+","+loc.getLongitude(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), values.toString() + "\n" + loc.getLatitude() + "," + loc.getLongitude(), Toast.LENGTH_LONG).show();
                 HttpClient httpClient = new DefaultHttpClient(); //Use this instead
                 try {
                     HttpPost request = new HttpPost("http://83.212.98.110:8000/");
                     StringEntity params = new StringEntity(values.toJson());
                     request.setHeader("Accept", "application/json");
-                    request.setHeader("Content-type","application/json");
+                    request.setHeader("Content-type", "application/json");
                     request.setEntity(params);
                     HttpResponse response = httpClient.execute(request);
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     System.out.println("Something went horribly wrong " + ex.getMessage());
                 }
             }
@@ -146,12 +157,33 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent symptoms = new Intent();
-                symptoms.setClass(getApplicationContext(),SymptomsActivity.class);
-                startActivityForResult(symptoms,1);
+                symptoms.setClass(getApplicationContext(), SymptomsActivity.class);
+                startActivityForResult(symptoms, 1);
+
             }
         });
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case (1): {
+                if (resultCode == Activity.RESULT_OK) {
+                    List<Symptoms> symptomList = new ArrayList<Symptoms>();
+                    symptomList= (ArrayList<Symptoms>)data.getSerializableExtra("USSYMPTOMS");
+//                    System.out.println("GYRUSAAAAAAAAAAAAA");
+                    for (Symptoms s :symptomList)
+                    {
+  //                      System.out.println(s.getName()+"------ >"+s.getRate());
+                    }
+                }
+                break;
+            }
+        }
+    }
+
 
     private void registerSensorListeners() {
         mSensorManager.registerListener(pressureSensorListener, mPressure, SensorManager.SENSOR_DELAY_FASTEST);
@@ -197,4 +229,6 @@ public class ReportActivity extends AppCompatActivity {
             return locationNet;
         }
     }
+
+
 }
