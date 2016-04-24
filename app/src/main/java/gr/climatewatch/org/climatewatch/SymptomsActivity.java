@@ -91,6 +91,8 @@ public class SymptomsActivity extends Activity {
                 Toast.makeText(getApplicationContext(),
                         responseText, Toast.LENGTH_LONG).show();
 
+                finish();
+
             }
         });
 
