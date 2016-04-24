@@ -217,7 +217,7 @@ public class ReportActivity extends AppCompatActivity {
         for (Symptoms s : sy) {
             tmp += "\"" + s.getName() + "\":{\n" +
                     "\"measurements\":{" +
-                    "\"value\":\"" + s.getRate() + "\"\n},";
+                    "\"value\":\"" + s.getRate() + "\"\n}\n},";
         }
         if (!sy.isEmpty()) {
             generatedJson = "[\n" +
@@ -232,7 +232,7 @@ public class ReportActivity extends AppCompatActivity {
                     "" + longitude + "\n" +
                     "]\n" +
 
-                    "}\n}\n]";
+                    "}\n}\n}\n]";
             ;
         }
         return generatedJson;
