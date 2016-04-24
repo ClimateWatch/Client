@@ -79,36 +79,36 @@ public class SensorValues {
     }
 
     public String toJson() {
-        generatedJson = "[" +
-                "{" +
-                "\"type\":\"Feature\"," +
-                "\"temperature\":{" +
-                "\"temperature\":\"" + temprature + "\"," +
-                "\"timestamp\":\"" + timestamp + "\"" +
-                "}," +
-                "{" +
-                "\"humidity\":{" +
-                "\"humidity\":\"" + humidity + "\"," +
-                "\"timestamp\":\"" + timestamp + "\"" +
-                "}," +
-                "{" +
-                "\"lux\":{" +
-                "\"lux\":\"" + lux + "\"," +
-                "\"timestamp\":\"" + timestamp + "\"" +
-                "}," +
-                "{" +
-                "\"pressure\":{" +
-                "\"pressure\":\"" + pressure + "\"," +
-                "\"timestamp\":\"" + timestamp + "\"" +
-                "}," +
+        generatedJson = "[\n" +
+                "{\n" +
+                "\"type\":\"Feature\",\n" +
+                "\"temperature\":{\n" +
+                "\"temperature\":\"" + temprature + "\",\n" +
+                "\"timestamp\":\"" + timestamp + "\"\n" +
+                "},\n" +
+
+                "\"humidity\":{\n" +
+                "\"humidity\":\"" + humidity + "\",\n" +
+                "\"timestamp\":\"" + timestamp + "\"\n" +
+                "},\n" +
+
+                "\"lux\":{\n" +
+                "\"lux\":\"" + lux + "\",\n" +
+                "\"timestamp\":\"" + timestamp + "\"\n" +
+                "},\n" +
+
+                "\"pressure\":{\n" +
+                "\"pressure\":\"" + pressure + "\",\n" +
+                "\"timestamp\":\"" + timestamp + "\"\n" +
+                "},\n" +
                 "\"geometry\":{\n" +
                 "\"type\":\"Point\",\n" +
                 "\"coordinates\":[\n" +
                 "" + latitude + ",\n" +
                 "" + longitude + "\n" +
                 "]\n" +
-                "}\n" +
-                "}}]";
+
+                "}\n}\n]";
         return generatedJson;
     }
 

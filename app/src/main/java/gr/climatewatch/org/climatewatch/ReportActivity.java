@@ -9,10 +9,19 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,7 +31,7 @@ public class ReportActivity extends AppCompatActivity {
 
     //Graphics
     private ImageButton posImage;
-    private ImageButton sysImage;
+//    private ImageButton sysImage;
 
     private LocationManager locationManager = null;
     private SensorEventListener lightSensorListener;
@@ -39,7 +48,7 @@ public class ReportActivity extends AppCompatActivity {
     private Sensor mLux;
     private Sensor mTemprature;
     private SensorValues values;
-
+    private Gson gson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +58,9 @@ public class ReportActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        gson = new Gson();
         posImage = (ImageButton) findViewById(R.id.posBtn);
-        sysImage = (ImageButton) findViewById(R.id.symptBtn);
+//        sysImage = (ImageButton) findViewById(R.id.symptBtn);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
@@ -121,18 +131,28 @@ public class ReportActivity extends AppCompatActivity {
                 String t = format.replace(" ", "T");
                 values.setTimestamp(t + "Z");
                 System.out.println("Values from class: " + values.toJson());
-                Toast.makeText(getApplicationContext(), values.toString()+"\n"+loc.getLatitude()+","+loc.getLongitude(), Toast.LENGTH_LONG).show();
+                HttpClient httpClient = new DefaultHttpClient(); //Use this instead
+                try {
+                    HttpPost request = new HttpPost("http://192.168.1.3:8000/");
+                    StringEntity params = new StringEntity(values.toJson());
+                    request.setHeader("Accept", "application/json");
+                    request.setHeader("Content-type","application/json");
+                    request.setEntity(params);
+                    HttpResponse response = httpClient.execute(request);
+                }catch (Exception ex) {
+                    System.out.println("Something went horribly wrong " + ex.getMessage());
+                }
             }
         });
 
-        sysImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent symptoms = new Intent();
-                symptoms.setClass(getApplicationContext(), SymptomsActivity.class);
-                startActivityForResult(symptoms, 1);
-            }
-        });
+//        sysImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent symptoms = new Intent();
+//                symptoms.setClass(getApplicationContext(),Symptomsactivity.class);
+//                startActivityForResult(symptoms,1);
+//            }
+//        });
 
     }
 
