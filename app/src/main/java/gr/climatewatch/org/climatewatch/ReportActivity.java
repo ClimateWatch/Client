@@ -172,11 +172,21 @@ public class ReportActivity extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     List<Symptoms> symptomList = new ArrayList<Symptoms>();
                     symptomList= (ArrayList<Symptoms>)data.getSerializableExtra("USSYMPTOMS");
-//                    System.out.println("GYRUSAAAAAAAAAAAAA");
-                    for (Symptoms s :symptomList)
-                    {
-  //                      System.out.println(s.getName()+"------ >"+s.getRate());
+                    HttpClient httpClient = new DefaultHttpClient(); //Use this instead
+                    try {
+                        HttpPost request = new HttpPost("http://83.212.98.110:8000/");
+                        StringEntity params = new StringEntity(symptomsToJSON((ArrayList<Symptoms>) symptomList));
+                        request.setHeader("Accept", "application/json");
+                        request.setHeader("Content-type", "application/json");
+                        request.setEntity(params);
+                        HttpResponse response = httpClient.execute(request);
+                    } catch (Exception ex) {
+                        System.out.println("Something went horribly wrong " + ex.getMessage());
                     }
+                    //for (Symptoms s :symptomList)
+                    //{
+  //                      System.out.println(s.getName()+"------ >"+s.getRate());
+                    //}
                 }
                 break;
             }
