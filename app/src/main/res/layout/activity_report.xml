@@ -40,4 +40,13 @@
         android:background="@drawable/ic_action_name"
         android:contentDescription="@string/symptoms" />
 
+    <TextView
+        android:id="@+id/textSymptom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/textS"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
 </LinearLayout>

@@ -2,5 +2,5 @@
 <resources>
     <string name="positionmarker">positionmarker</string>
     <string name="symptoms">symptoms</string>
-    <string name="texV">Press the button above to locate</string>
+    <string name="texV">Submit Your Location</string>
 </resources>
